@@ -6,7 +6,7 @@
     The `service routing protocols model multi-agent` command requires a reboot to take effect.
 
 ##### Interfaces
-```yaml
+```
 
 interface Ethernet1
    mtu 9214 #(1)!
