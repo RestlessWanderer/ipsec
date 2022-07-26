@@ -1,9 +1,1 @@
-site_name: Arista EVPN Deployment Guide
-
-nav:
-  - Home: index.md
-  - Data Center A: datacenter_a.md
-  - Data Center B: datacenter_b.md
-  - Data Center C: datacenter_c.md
-  - DCI: dci.md
-  - Additional Resources: additional_resources.md
+site_name: My Docs
