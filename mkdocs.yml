@@ -8,7 +8,7 @@ nav:
   - DCI: dci.md
   - Additional Resources: additional_resources.md
 
-copyright: Copyright &copy; 2022 Arista Networks
+copyright: Copyright &copy; 2022 Restless Wanderer
 
 extra_css:
   - stylesheets/extra.css
@@ -49,9 +49,9 @@ plugins:
   - search:
       lang: en
 
-repo_name: Arista EVPN DG on GitHub
+repo_name: Arista IPSec VPN Guide on GitHub
 
-repo_url: https://github.com/aristanetworks/deployment-guide-evpn
+repo_url: https://github.com/restlesswanderer/ipsec
 
 theme:
 
