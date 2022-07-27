@@ -1,15 +1,15 @@
 # IPSec Overview
 
-### Components and Protocols
+## Components and Protocols
 
-### IPSec VPN Types
+## IPSec VPN Types
 # Arista Hardware Support
 
-### Limitations by model
+## Limitations by model
 # Best Practice Configurations
 
-### VRF Support
+## VRF Support
 
-### Example Topologies and Configurations
+## Example Topologies and Configurations
 
 # Troubleshooting
