@@ -12,9 +12,9 @@ The following protcols could be in use for phase 1:
 
 | Protocol | Name | Reference |
 | ---- | ---- | ---- |
-| ISAKMP | Internet Security Association and Key Management Protocol | Visit https://datatracker.ietf.org/doc/html/rfc2408 |
-| IKEv1 | Internet Key Exchange version 1 | Visit https://datatracker.ietf.org/doc/html/rfc2409 |
-| IKEv2 | Internet Key Exchange version 2 | Visit https://datatracker.ietf.org/doc/html/rfc7296 |
+| ISAKMP | Internet Security Association and Key Management Protocol | https://datatracker.ietf.org/doc/html/rfc2408 |
+| IKEv1 | Internet Key Exchange version 1 | https://datatracker.ietf.org/doc/html/rfc2409 |
+| IKEv2 | Internet Key Exchange version 2 | https://datatracker.ietf.org/doc/html/rfc7296 |
 
 The following are the network related details for the IKE Protocol:
 
@@ -25,7 +25,7 @@ The following are the network related details for the IKE Protocol:
 
 ## IPSec VPN Types
 # Arista Hardware Support
-
+Two model Arista switches support IPSec, and more importantly, support the crypto processing in hardware.  The models supporting this are the 7020 and the 7280. 
 ## Limitations by model
 # Configurations
 
