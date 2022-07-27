@@ -1,3 +1,4 @@
 theme: jekyll-theme-modernist
 title: Arista IPSec VPN Guide
 description: IPSec info with specifics for supported Arista hardware
+markdown: GFM
