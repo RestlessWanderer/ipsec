@@ -8,13 +8,20 @@ In the formation of an IPSec VPN, there are two phases the endpoints go through 
 #### Phase 1
 The first phase of this process is used to authenticate the identities of the endpoints participating in the VPN.  Additionally, once this first phase is complete, it allows for the second phase of the process to take place in an encrypted manner.  The phase 1 tunnel protects the control-plane traffic between the endpoints.
 
-The following protcols could be in use for phase 1.
+The following protcols could be in use for phase 1:
 
 | Protocol | Name | Reference |
 | ---- | ---- | ---- |
 | ISAKMP | Internet Security Association and Key Management Protocol | Visit https://datatracker.ietf.org/doc/html/rfc2408 |
 | IKEv1 | Internet Key Exchange version 1 | Visit https://datatracker.ietf.org/doc/html/rfc2409 |
 | IKEv2 | Internet Key Exchange version 2 | Visit https://datatracker.ietf.org/doc/html/rfc7296 |
+
+The following are the network related details for the IKE Protocol:
+
+| Network Protocol | Network Port | Notes |
+| ---- | ---- | ---- |
+| UDP | 500 | Used for establishment of VPN |
+| UDP | 4500 | `NAT-Traversal` Used for esatablishment of VPN when one endpoint is behind a NAT device | 
 
 ## IPSec VPN Types
 # Arista Hardware Support
