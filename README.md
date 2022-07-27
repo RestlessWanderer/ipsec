@@ -5,7 +5,16 @@ In general, IPSec VPNs are typically referred to as "tunnels", most often in an 
 ## Components and Protocols
 ### Phases
 In the formation of an IPSec VPN, there are two phases the endpoints go through before being able to encrypt and transmit traffic.  These are subsequently called `Phase 1` and `Phase 2`.
+#### Phase 1
+The first phase of this process is used to authenticate the identities of the endpoints participating in the VPN.  Additionally, once this first phase is complete, it allows for the second phase of the process to take place in an encrypted manner.  The phase 1 tunnel protects the control-plane traffic between the endpoints.
 
+The following protcols could be in use for phase 1.
+
+| Protocol | Name | Reference |
+| ---- | ---- | ---- |
+| ISAKMP | Internet Security Association and Key Management Protocol | Visit https://datatracker.ietf.org/doc/html/rfc2408 |
+| IKEv1 | Internet Key Exchange version 1 | Visit https://datatracker.ietf.org/doc/html/rfc2409 |
+| IKEv2 | Internet Key Exchange version 2 | Visit https://datatracker.ietf.org/doc/html/rfc7296 |
 
 ## IPSec VPN Types
 # Arista Hardware Support
