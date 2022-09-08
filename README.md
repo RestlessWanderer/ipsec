@@ -105,7 +105,7 @@ router bgp 65100
 ```
 
 </p></details>
----
+&nbsp  
 <details><summary>EOS15</summary><p>
 
 ```
