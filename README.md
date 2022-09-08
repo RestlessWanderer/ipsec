@@ -24,7 +24,7 @@ The following are the network related details for the IKE Protocol:
 | UDP | 4500 | `NAT-Traversal` Used for esatablishment of VPN when one endpoint is behind a NAT device | 
 
 ##### IKEv1 Modes and Stages
-IKEv1 modes and stages are covered with in-depth documentation, so I won't cover it here because all IPSec VPN deployments should really be using IKEv2 at this point in time.
+IKEv1 modes and stages are covered with existing in-depth documentation, so they won't be covered here because all IPSec VPN deployments should really be using IKEv2 at this point in time.
 ##### IKEv2 Stages
 
 
@@ -32,8 +32,10 @@ IKEv1 modes and stages are covered with in-depth documentation, so I won't cover
 The second phase of this process is used to authenticate and encrypt the data plane traffic to be sent between the VPN endpoints.  During this process there are two possible protocols used, `ESP` or `AH`.  Additionally, there is another security mechanism called `PFS` or `Perfect Forward Secrecy`, used to increase the security of the encryption keys used.  Once the phase 2 negotiation is complete, an `SA` or `Security Association` is created, which specifies the algorithms in use and which endpoints are part of that security association.  
 
 | Protocol Name | Protocol Number | Notes |
-| ESP (Encapsulating Security Payload) | 50 | Provides data integrity with authentication and confidentiality with encryption
-| AH (Authentication Header) | 51 | Provides only data integrity through authentication
+| ---- | ---- | ---- |
+| ESP (Encapsulating Security Payload) | 50 | Provides data integrity with authentication and confidentiality with encryption |
+| AH (Authentication Header) | 51 | Provides only data integrity through authentication |
+
 ## IPSec VPN Types
 This guide specifically references site to site IPSec VPNs, and therefore, there are two different types of IPSec VPNs that are deployed by the various OEMs.  They are `Policy Based` and `Route Based` (Used on Arista Devices) VPNs. 
 ### Policy Based VPNs
@@ -527,8 +529,56 @@ router bgp 65101
 
 ```
 ip security
+   ike policy ph1-pol
+      encryption aes256
    
-   network 40.40.40.0/24
+   sa policy ph2-pol
+      sa lifetime 2 hours
+   
+   profile vpn
+      ike-policy ph1-pol 
+      sa-policy ph2-pol 
+      shared-key 7 1304051B181805
+      dpd 15 30 clear
+
+vlan 50
+   name vlan50
+
+vlan 60
+   name vlan60
+
+vlan 70
+   name vlan70
+
+interface Ethernet30/1
+   no switchport
+
+interface Ethernet30/1.100
+   encapsulation dot1q vlan 100
+   ip address 192.1.1.2/30
+
+interface Tunnel0
+   mtu 1394
+   ip address 10.255.255.2/30
+   tunnel mode ipsec
+   tunnel source 192.1.1.2
+   tunnel destination 192.1.1.1
+   tunnel ipsec profile vpn
+
+interface Vlan50
+   ip address 50.50.50.1/24
+
+interface Vlan60
+   ip address 60.60.60.1/24
+
+interface Vlan70
+   ip address 70.70.70.1/24
+
+router bgp 65103
+   neighbor 10.255.255.1 remote-as 65101
+   network 50.50.50.0/24
+   network 60.60.60.0/24
+   network 70.70.70.0/24
 ```
 
 </p></details>
