@@ -54,11 +54,11 @@ Two model Arista switches support IPSec, and more importantly, support the crypt
 ## VRF Support
 
 ## Example Topologies and Configurations
-The following example topologies and configurations have been deployed and tested on actual hardware consisting of 3x Arista DCS-7280CR3MK-32P4S-F as the VPN endpoints, and various other non-crypto 7280 and 720XP access switches.  These topologies also use BGP peering for the underlay transport network, and across the VPN tunnel/s.
+The following example topologies and configurations have been deployed and tested on actual hardware consisting of 3x Arista DCS-7280CR3MK-32P4S-F as the VPN endpoints, and various other non-crypto 7280 and 720XP access switches.  These topologies also use BGP peering across the VPN tunnel/s.
 
 The configurations that are included are just for the relevant devices running the IPSec tunnel interfaces, and relative to the IPSec and routing operation.  Base and global config parts are left out.
 ### IPSec VPN with eBGP Routing
-This topology is a simple site to site IPSec VPN between two Arista 7280CR3Mks.  With a single, directly connected link for the underlay transport between the switches, eBGP is only running across the tunnel interface to advertise the local subnets.
+This topology is a simple site to site IPSec VPN between two Arista 7280CR3Mks.  With a single, directly connected link for the underlay transport between the switches and eBGP running across the tunnel interface to advertise the local subnets.
 
 <img src="images/IPSec VPN-eBGP - Logical.png">
 &nbsp  
@@ -82,6 +82,12 @@ ip security
       shared-key 7 0005010F174F0A
       dpd 30 15 clear
 
+vlan 10
+   name vlan10
+
+vlan 30
+   name vlan30      
+
 interface Ethernet31/1
    no switchport
 
@@ -96,6 +102,12 @@ interface Tunnel0
    tunnel source 192.1.1.1
    tunnel destination 192.1.1.2
    tunnel ipsec profile vpn
+
+interface Vlan10
+   ip address 10.10.10.1/24
+
+interface Vlan30
+   ip address 30.30.30.1/24
 
 router bgp 65100
    router-id 10.255.255.253
@@ -124,6 +136,12 @@ ip security
       shared-key 7 03054902151B20
       dpd 30 15 clear
 
+vlan 20
+   name vlan20
+
+vlan 40
+   name vlan40
+
 interface Ethernet31/1
    no switchport
 !
@@ -138,6 +156,12 @@ interface Tunnel0
    tunnel source 192.1.1.2
    tunnel destination 192.1.1.1
    tunnel ipsec profile vpn
+
+interface Vlan20
+   ip address 20.20.20.1/24
+
+interface Vlan40
+   ip address 40.40.40.1/24
 
 router bgp 65200
    router-id 192.1.1.2
@@ -160,7 +184,51 @@ router bgp 65200
 
 ```
 ip security
+   ike policy ph1-pol
+      encryption aes256
    
+   sa policy ph2-pol
+      sa lifetime 2 hours
+   
+   profile test
+   
+   profile vpn
+      ike-policy ph1-pol 
+      sa-policy ph2-pol 
+      shared-key 7 1218171E011F0D
+      dpd 30 15 clear
+
+vlan 10
+   name vlan10
+
+vlan 30
+   name vlan30
+
+interface Ethernet31/1
+   no switchport
+
+interface Ethernet31/1.101
+   encapsulation dot1q vlan 101
+   ip address 192.2.2.2/30
+
+interface Tunnel1
+   mtu 1394
+   ip address 10.255.255.6/30
+   tunnel mode ipsec
+   tunnel source 192.2.2.2
+   tunnel destination 192.2.2.1
+   tunnel ipsec profile vpn
+
+interface Vlan10
+   ip address 10.10.10.1/24
+
+interface Vlan30
+   ip address 30.30.30.1/24
+
+router bgp 65102
+   router-id 10.255.255.6
+   neighbor 10.255.255.5 remote-as 65101
+   network 10.10.10.0/24
    network 30.30.30.0/24
 ```
 
@@ -170,8 +238,84 @@ ip security
 
 ```
 ip security
+   ike policy ph1-pol
+      encryption aes256
    
+   sa policy ph2-pol
+      sa lifetime 2 hours
+      pfs dh-group 14
+   
+   profile vpn
+      ike-policy ph1-pol 
+      sa-policy ph2-pol 
+      connection start
+      shared-key 7 0207165218120E
+      dpd 30 15 clear
+
+vlan 20
+   name vlan20
+
+vlan 30
+   name vlan30
+
+vlan 40
+   name vlan40
+
+vrf instance warehouse
+
+interface Ethernet30/1
+   description transport_to_EOS16
+   no switchport
+
+interface Ethernet30/1.100
+   encapsulation dot1q vlan 100
+   ip address 192.1.1.1/30
+
+interface Ethernet31/1
+   description transport_to_EOS14
+   no switchport
+
+interface Ethernet31/1.101
+   encapsulation dot1q vlan 101
+   ip address 192.2.2.1/30
+
+interface Tunnel0
+   mtu 1394
+   vrf warehouse
+   ip address 10.255.255.1/30
+   tunnel mode ipsec
+   tunnel source 192.1.1.1
+   tunnel destination 192.1.1.2
+   tunnel ipsec profile vpn
+
+interface Tunnel1
+   mtu 1394
+   ip address 10.255.255.5/30
+   tunnel mode ipsec
+   tunnel source 192.2.2.1
+   tunnel destination 192.2.2.2
+   tunnel ipsec profile vpn
+
+interface Vlan20
+   ip address 20.20.20.1/24
+
+interface Vlan30
+   vrf warehouse
+   ip address 30.30.30.1/24
+
+interface Vlan40
+   ip address 40.40.40.1/24
+
+ip routing vrf warehouse
+
+router bgp 65101
+   neighbor 10.255.255.6 remote-as 65102
+   network 20.20.20.0/24
    network 40.40.40.0/24
+   
+   vrf warehouse
+      neighbor 10.255.255.2 remote-as 65103
+      network 30.30.30.0/24
 ```
 
 </p></details>
@@ -180,8 +324,56 @@ ip security
 
 ```
 ip security
+   ike policy ph1-pol
+      encryption aes256
    
-   network 40.40.40.0/24
+   sa policy ph2-pol
+      sa lifetime 2 hours
+   
+   profile vpn
+      ike-policy ph1-pol 
+      sa-policy ph2-pol 
+      shared-key 7 1304051B181805
+      dpd 15 30 clear
+
+vlan 50
+   name vlan50
+
+vlan 60
+   name vlan60
+
+vlan 70
+   name vlan70
+
+interface Ethernet30/1
+   no switchport
+
+interface Ethernet30/1.100
+   encapsulation dot1q vlan 100
+   ip address 192.1.1.2/30
+
+interface Tunnel0
+   mtu 1394
+   ip address 10.255.255.2/30
+   tunnel mode ipsec
+   tunnel source 192.1.1.2
+   tunnel destination 192.1.1.1
+   tunnel ipsec profile vpn
+
+interface Vlan50
+   ip address 50.50.50.1/24
+
+interface Vlan60
+   ip address 60.60.60.1/24
+
+interface Vlan70
+   ip address 70.70.70.1/24
+
+router bgp 65103
+   neighbor 10.255.255.1 remote-as 65101
+   network 50.50.50.0/24
+   network 60.60.60.0/24
+   network 70.70.70.0/24
 ```
 
 </p></details>
@@ -197,7 +389,49 @@ ip security
 
 ```
 ip security
+   ike policy ph1-pol
+      encryption aes256
    
+   sa policy ph2-pol
+      sa lifetime 2 hours
+
+   profile vpn
+      ike-policy ph1-pol 
+      sa-policy ph2-pol 
+      shared-key 7 1218171E011F0D
+      dpd 30 15 clear
+
+vlan 10
+   name vlan10
+
+vlan 30
+   name vlan30
+
+interface Ethernet31/1
+   no switchport
+
+interface Ethernet31/1.101
+   encapsulation dot1q vlan 101
+   ip address 192.2.2.2/30
+
+interface Tunnel1
+   mtu 1394
+   ip address 10.255.255.6/30
+   tunnel mode ipsec
+   tunnel source 192.2.2.2
+   tunnel destination 192.2.2.1
+   tunnel ipsec profile vpn
+
+interface Vlan10
+   ip address 10.10.10.1/24
+
+interface Vlan30
+   ip address 30.30.30.1/24
+
+router bgp 65102
+   router-id 10.255.255.6
+   neighbor 10.255.255.5 remote-as 65101
+   network 10.10.10.0/24
    network 30.30.30.0/24
 ```
 
@@ -207,8 +441,84 @@ ip security
 
 ```
 ip security
-   
-   network 40.40.40.0/24
+   ike policy ph1-pol
+      encryption aes256
+   !
+   sa policy ph2-pol
+      sa lifetime 2 hours
+      pfs dh-group 14
+   !
+   profile vpn
+      ike-policy ph1-pol 
+      sa-policy ph2-pol 
+      connection start
+      shared-key 7 0207165218120E
+      dpd 30 15 clear
+    
+vlan 20
+   name vlan20
+
+vlan 30
+   name vlan30
+
+vlan 40
+   name vlan40
+
+vrf instance vpn
+
+interface Ethernet30/1
+   description transport_to_EOS16
+   no switchport
+
+interface Ethernet30/1.100
+   encapsulation dot1q vlan 100
+   ip address 192.1.1.1/30
+
+interface Ethernet31/1
+   description transport_to_EOS14
+   no switchport
+
+interface Ethernet31/1.101
+   encapsulation dot1q vlan 101
+   ip address 192.2.2.1/30
+
+interface Tunnel0
+   mtu 1394
+   vrf vpn
+   ip address 10.255.255.1/30
+   tunnel mode ipsec
+   tunnel source 192.1.1.1
+   tunnel destination 192.1.1.2
+   tunnel ipsec profile vpn
+
+interface Tunnel1
+   mtu 1394
+   vrf vpn
+   ip address 10.255.255.5/30
+   tunnel mode ipsec
+   tunnel source 192.2.2.1
+   tunnel destination 192.2.2.2
+   tunnel ipsec profile vpn
+
+interface Vlan20
+   vrf vpn
+   ip address 20.20.20.1/24
+
+interface Vlan30
+   ip address 30.30.30.1/24
+
+interface Vlan40
+   vrf vpn
+   ip address 40.40.40.1/24
+
+ip routing vrf vpn
+
+router bgp 65101
+   vrf vpn
+      neighbor 10.255.255.2 remote-as 65103
+      neighbor 10.255.255.6 remote-as 65102
+      network 20.20.20.0/24
+      network 40.40.40.0/24
 ```
 
 </p></details>
