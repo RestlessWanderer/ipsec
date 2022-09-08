@@ -22,6 +22,7 @@ The following are the network related details for the IKE Protocol:
 | ---- | ---- | ---- |
 | UDP | 500 | Used for establishment of VPN |
 | UDP | 4500 | `NAT-Traversal` Used for esatablishment of VPN when one endpoint is behind a NAT device | 
+&nbsp  
 
 ##### IKEv1 Modes and Stages
 IKEv1 modes and stages are covered with existing in-depth documentation, so they won't be covered here because all IPSec VPN deployments should really be using IKEv2 at this point in time.
