@@ -24,6 +24,9 @@ The following are the network related details for the IKE Protocol:
 | UDP | 4500 | `NAT-Traversal` Used for esatablishment of VPN when one endpoint is behind a NAT device | 
 
 ## IPSec VPN Types
+This guide specifically references site to site IPSec VPNs, and therefore, there are two different types of IPSec VPNs that are deployed by various vendors.  They are `Policy Based` and `Route Based` [Used on Arista Devices]. 
+### Policy Based VPNs
+
 # Arista Hardware Support
 Two model Arista switches support IPSec, and more importantly, support the crypto processing in hardware.  The models supporting this are the 7020 and the 7280. 
 ## Limitations by model
