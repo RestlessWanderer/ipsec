@@ -63,8 +63,9 @@ This topology is a simple site to site IPSec VPN between two Arista 7280CR3Mks. 
 <img src="images/IPSec VPN-eBGP - Logical.png">
 
 #### Configurations
-<details><summary>**EOS14**</summary><p>
----
+<details><summary>EOS14</summary><p>
+
+```
 ip security
    ike policy ike-pol
       encryption aes256
@@ -101,9 +102,10 @@ router bgp 65100
    neighbor 10.255.255.254 maximum-routes 0
    network 10.10.10.0/24
    network 30.30.30.0/24
+```
 
----
 </p></details>
+
 ### IPSec VPN with vrfs and eBGP Routing Version 1
 
 <img src="images/IPSec VPN-VRF-eBGPv1 - Logical.png">
