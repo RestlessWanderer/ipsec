@@ -147,6 +147,7 @@ router bgp 65200
 ```
 
 </p></details>
+&nbsp  
 
 ### IPSec VPN with vrfs and eBGP Routing Version 1
 
