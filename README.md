@@ -58,11 +58,14 @@ Two model Arista switches support IPSec, and more importantly, support the crypt
 The following example topologies and configurations have been deployed and tested on actual hardware consisting of 3x Arista DCS-7280CR3MK-32P4S-F as the VPN endpoints, and various other non-crypto 7280 and 720XP access switches.  These topologies also use BGP peering for the underlay transport network, and across the VPN tunnel/s.
 ### IPSec VPN with eBGP Routing
 
+!(/images/IPSec VPN-eBGP - Logical.png)
 
 
 ### IPSec VPN with vrfs and eBGP Routing Version 1
 
+!(images/IPSec VPN-VRF-eBGPv1 - Logical.png)
 
 ### IPSec VPN with vrfs and eBGP Routing Version 2
 
+!(images/IPSec VPN-VRF-eBGPv2 - Logical.png)
 # Troubleshooting
