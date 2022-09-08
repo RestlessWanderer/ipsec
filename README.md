@@ -61,6 +61,7 @@ The configurations that are included are just for the relevant devices running t
 This topology is a simple site to site IPSec VPN between two Arista 7280CR3Mks.  With a single, directly connected link for the underlay transport between the switches, eBGP is only running across the tunnel interface to advertise the local subnets.
 
 <img src="images/IPSec VPN-eBGP - Logical.png">
+&nbsp  
 
 #### Configurations
 <details><summary>EOS14</summary><p>
