@@ -64,15 +64,15 @@ This topology is a simple site to site IPSec VPN between two Arista 7280CR3Mks. 
 
 #### Configurations
 **EOS14**
-```python
+```ruby
 ip security
    ike policy ike-pol
       encryption aes256
-   !
+   
    sa policy sa-pol
       sa lifetime 2 hours
       pfs dh-group 14
-   !
+   
    profile vpn
       ike-policy ike-pol 
       sa-policy sa-pol 
@@ -82,7 +82,7 @@ ip security
 
 interface Ethernet31/1
    no switchport
-!
+
 interface Ethernet31/1.100
    encapsulation dot1q vlan 100
    ip address 192.1.1.1/30
