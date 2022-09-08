@@ -23,17 +23,46 @@ The following are the network related details for the IKE Protocol:
 | UDP | 500 | Used for establishment of VPN |
 | UDP | 4500 | `NAT-Traversal` Used for esatablishment of VPN when one endpoint is behind a NAT device | 
 
+##### IKEv1 Modes and Stages
+IKEv1 modes and stages are covered with in-depth documentation, so I won't cover it here because all IPSec VPN deployments should really be using IKEv2 at this point in time.
+##### IKEv2 Stages
+
+
+#### Phase 2
+The second phase of this process is used to authenticate and encrypt the data plane traffic to be sent between the VPN endpoints.  During this process there are two possible protocols used, `ESP` or `AH`.  Additionally, there is another security mechanism called `PFS` or `Perfect Forward Secrecy`, used to increase the security of the encryption keys used.  Once the phase 2 negotiation is complete, an `SA` or `Security Association` is created, which specifies the algorithms in use and which endpoints are part of that security association.  
+
+| Protocol Name | Protocol Number | Notes |
+| ESP (Encapsulating Security Payload) | 50 | Provides data integrity with authentication and confidentiality with encryption
+| AH (Authentication Header) | 51 | Provides only data integrity through authentication
 ## IPSec VPN Types
-This guide specifically references site to site IPSec VPNs, and therefore, there are two different types of IPSec VPNs that are deployed by various vendors.  They are `Policy Based` and `Route Based` [Used on Arista Devices]. 
+This guide specifically references site to site IPSec VPNs, and therefore, there are two different types of IPSec VPNs that are deployed by the various OEMs.  They are `Policy Based` and `Route Based` (Used on Arista Devices) VPNs. 
 ### Policy Based VPNs
 
+
+### Route Based VPNs
+
+## IPSec VPN Modes
+
+### Transport Mode
+
+### Tunnel Mode
+
 # Arista Hardware Support
-Two model Arista switches support IPSec, and more importantly, support the crypto processing in hardware.  The models supporting this are the 7020 and the 7280. 
+Two model Arista switches support IPSec, and more importantly, support the crypto processing in hardware.  The models supporting this are the 7020 and the 7280 with the `M` designation in the model number. 
 ## Limitations by model
 # Configurations
 
 ## VRF Support
 
 ## Example Topologies and Configurations
+The following example topologies and configurations have been deployed and tested on actual hardware consisting of 3x Arista DCS-7280CR3MK-32P4S-F as the VPN endpoints, and various other non-crypto 7280 and 720XP access switches.  These topologies also use BGP peering for the underlay transport network, and across the VPN tunnel/s.
+### IPSec VPN with eBGP Routing
+
+
+
+### IPSec VPN with vrfs and eBGP Routing Version 1
+
+
+### IPSec VPN with vrfs and eBGP Routing Version 2
 
 # Troubleshooting
