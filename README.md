@@ -153,9 +153,75 @@ router bgp 65200
 ### IPSec VPN with vrfs and eBGP Routing Version 1
 
 <img src="images/IPSec VPN-VRF-eBGPv1 - Logical.png">
+&nbsp  
+
+#### Configurations
+<details><summary>EOS14</summary><p>
+
+```
+ip security
+   
+   network 30.30.30.0/24
+```
+
+</p></details>
+&nbsp  
+<details><summary>EOS15</summary><p>
+
+```
+ip security
+   
+   network 40.40.40.0/24
+```
+
+</p></details>
+&nbsp  
+<details><summary>EOS16</summary><p>
+
+```
+ip security
+   
+   network 40.40.40.0/24
+```
+
+</p></details>
+&nbsp  
 
 ### IPSec VPN with vrfs and eBGP Routing Version 2
 
 <img src="images/IPSec VPN-VRF-eBGPv2 - Logical.png">
+&nbsp  
+
+#### Configurations
+<details><summary>EOS14</summary><p>
+
+```
+ip security
+   
+   network 30.30.30.0/24
+```
+
+</p></details>
+&nbsp  
+<details><summary>EOS15</summary><p>
+
+```
+ip security
+   
+   network 40.40.40.0/24
+```
+
+</p></details>
+&nbsp  
+<details><summary>EOS16</summary><p>
+
+```
+ip security
+   
+   network 40.40.40.0/24
+```
+
+</p></details>
+&nbsp  
 
 # Troubleshooting
