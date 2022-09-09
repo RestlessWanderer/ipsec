@@ -37,24 +37,51 @@ The second phase of this process is used to authenticate and encrypt the data pl
 | ESP (Encapsulating Security Payload) | 50 | Provides data integrity with authentication and confidentiality with encryption |
 | AH (Authentication Header) | 51 | Provides only data integrity through authentication |
 
+`NOTE: The ESP header adds an extra 50 to 57 bytes to the original packet.`
+
+##### Security Association
+The phase 2 security association contains various pieces of information of the complete VPN tunnel.  This includes the encryption and authentication algorithms in use, DH group, if PFS is enabled, and also importantly, the proxy-id pair for the security association.  The proxy-id pair is the source and destination prefix that are part of that specific security association, which plays an important part in mixing VPN types.
+
 ## IPSec VPN Types
 This guide specifically references site to site IPSec VPNs, and therefore, there are two different types of IPSec VPNs that are deployed by the various OEMs.  They are `Policy Based` and `Route Based` (Used on Arista Devices) VPNs. 
 ### Policy Based VPNs
-
+Policy based VPNs are named as such because they use a policy approach to send the matching traffic to the crypto engine for processing.  This typically involves invoking an ACL that is called in the VPN configuration, which has a source and destination prefix or set of prefixes that must match.  It's important to know, that even in a single, extended, ACL, which has multiple sequences, a security association with matching proxy-id pair will be created for each sequence.  Additionally, policy based VPNs typically do not use a dedicated tunnel interface, they typically source via an existing interface.
 
 ### Route Based VPNs
+Route based VPNs, which are the type supported by Arista devices, are named as such because they use routes and the RIB to direct traffic to the crypto engine for processing.  Route based VPNs utilize dedicated tunnel interfaces, and importantly, the proxy-ids area a default prefix for source and destination of 0.0.0.0.  Having a 0.0.0.0/0.0.0.0 proxy-id pair ensures all traffic directed to the tunnel interface is encrypted into the VPN.  Another important function with route based VPNs that takes place, is that when the tunnel interface is enabled and up, and phase 2 completes, a route is automatically added to the routing table for the remote end of the tunnel through that endpoint.  One major benefit of route based VPNs is the ability to run a dynamic routing protocol over it, such as OSPF or BGP.
 
 ## IPSec VPN Modes
-
+In addition to there being two different types of IPSec VPNs, there are also two different VPN modes, transport mode and tunnel mode.  Arista devices only support tunnel mode
 ### Transport Mode
-
+Transport mode VPNs are typically VPNs built between two endpoints, or actual clients.  In this instance the IP header of the packet is original, and only the payload data is encrypted.  Because there is no new IP header, the configuration and routing of traffic is less complex. 
 ### Tunnel Mode
+Tunnel mode VPNs are the usual VPNs built between VPN gateways, and as such, internal information like routing and prefixes are protected because the entire original packet is encrypted and the new IP header is added on top of it.  The only information that can be gleaned from intercepting any tunnel mode IPSec packets are the tunnel endpoint IPs.
 
 # Arista Hardware Support
-Two model Arista switches support IPSec, and more importantly, support the crypto processing in hardware.  The models supporting this are the 7020 and the 7280 with the `M` designation in the model number. 
+Two model Arista switches support IPSec, and more importantly, support the crypto processing in hardware.  The models supporting this are the 7020TR and 7020SR, and the 7280 with the `M` designation in the model number, like 7280CR3MK.
 ## Limitations by model
+While IPSec VPN tunnels are supported on the two Arista platforms mentioned, there are some limitation and caveats for each model, the important ones outlined below.
 
+### Arista 7020 Limitations
+The platform specific limitations can be found here:   https://www.arista.com/en/support/toi/eos-4-22-0f/14302-ipsec-tunnels-on-eos
+
+Some limitations and caveats of note:
+- A TCAM profile must be defined in the CLI to enable the IPSec feature, and the profile must be made the active system profile.
+- Only two combinations of authentication/encryption are supported:  SHA1/AES256 (CBC), SHA256/AES256 (CBC).
+- ESP Fragmentation is not supported, tunnel interface MTU must be lowered to account for ESP packet overhead.
+
+### Arista 7280CR3MK Limitations
+The platform specific limitations can be found here:  https://www.arista.com/en/support/toi/eos-4-27-1f/14888-ipsec-tunnel-mode-support-on-7280cr3mk
+
+Some limitations and caveats of note:
+- The underlay interface used for resolving the tunnel endpoint must be a L3 sub-interface.
+- NAT-T is not supported
+- IPSec and MACSEC are mutually exclusive in the configuration, and only one can operate at a time.
 ## VRF Support
+For both platforms, there is VRF support, and it is as follows:
+
+1. Only the default VRF is supported for the underlay interface.
+2. The tunnel interface can be in a different VRF.
 
 ## Example Topologies and Configurations
 The following example topologies and configurations have been deployed and tested on actual hardware consisting of 3x Arista DCS-7280CR3MK-32P4S-F as the VPN endpoints, and various other non-crypto 7280 and 720XP access switches.  These topologies also use BGP peering across the VPN tunnel/s.
