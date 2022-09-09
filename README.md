@@ -27,7 +27,13 @@ The following are the network related details for the IKE Protocol:
 ##### IKEv1 Modes and Stages
 IKEv1 modes and stages are covered with existing in-depth documentation, so they won't be covered here because all IPSec VPN deployments should really be using IKEv2 at this point in time.
 ##### IKEv2 Stages
+1. IKE_SA_INIT
+- establish a secure channel between peers
+- combines all info in IKEv1 MM1-4
 
+2. IKE_AUTH
+- authenticate remote peer
+- includes SA and traffic selector/proxy-id to create Phase2 SA
 
 #### Phase 2
 The second phase of this process is used to authenticate and encrypt the data plane traffic to be sent between the VPN endpoints.  During this process there are two possible protocols used, `ESP` or `AH`.  Additionally, there is another security mechanism called `PFS` or `Perfect Forward Secrecy`, used to increase the security of the encryption keys used.  Once the phase 2 negotiation is complete, an `SA` or `Security Association` is created, which specifies the algorithms in use and which endpoints are part of that security association.  
@@ -88,7 +94,7 @@ The following example topologies and configurations have been deployed and teste
 
 The configurations that are included are just for the relevant devices running the IPSec tunnel interfaces, and relative to the IPSec and routing operation.  Base and global config parts are left out.
 ### IPSec VPN with eBGP Routing
-This topology is a simple site to site IPSec VPN between two Arista 7280CR3Mks.  With a single, directly connected link for the underlay transport between the switches and eBGP running across the tunnel interface to advertise the local subnets.
+This topology is a simple site to site IPSec VPN between two Arista 7280CR3MKs.  With a single, directly connected link for the underlay transport between the switches and eBGP running across the tunnel interface to advertise the local subnets.
 
 <img src="images/IPSec VPN-eBGP - Logical.png">
 &nbsp  
