@@ -29,11 +29,13 @@ IKEv1 modes and stages are covered with existing in-depth documentation, so they
 ##### IKEv2 Stages
 1. IKE_SA_INIT
 - establish a secure channel between peers
-- combines all info in IKEv1 MM1-4
+- combines all info from IKEv1 MM1-4
 
 2. IKE_AUTH
 - authenticate remote peer
 - includes SA and traffic selector/proxy-id to create Phase2 SA
+
+After the initial IKEv2 stages, Child SAs are created for each proxy-id pair in the VPN tunnel.
 
 #### Phase 2
 The second phase of this process is used to authenticate and encrypt the data plane traffic to be sent between the VPN endpoints.  During this process there are two possible protocols used, `ESP` or `AH`.  Additionally, there is another security mechanism called `PFS` or `Perfect Forward Secrecy`, used to increase the security of the encryption keys used.  Once the phase 2 negotiation is complete, an `SA` or `Security Association` is created, which specifies the algorithms in use and which endpoints are part of that security association.  
@@ -619,3 +621,5 @@ router bgp 65103
 &nbsp  
 
 # Troubleshooting
+The following commands can be used to troubleshoot VPN tunnels:
+
