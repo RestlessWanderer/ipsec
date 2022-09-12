@@ -627,7 +627,7 @@ The following commands can be used to troubleshoot VPN tunnels:
 ### show interface tunnel `x`
 <img src="images/sho int tun - down.png">
 
-<img src="images/sho int tun.png" width="634" height="184">
+<img src="images/sho int tun.png" width="334" height="184">
 
 
 ### show ip route
