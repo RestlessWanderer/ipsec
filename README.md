@@ -624,3 +624,46 @@ router bgp 65103
 # Troubleshooting
 The following commands can be used to troubleshoot VPN tunnels:
 
+### show interface tunnel `x`
+<img src="images/sho int tun - down.png">
+
+<img src="images/sho int tun.png">
+
+
+### show ip route
+<img src="images/sho ip route.png">
+
+
+### show ip security connection
+<img src="images/sho ip sec conn.png">
+
+### show ip security connection tunnel `x` detail
+<img src="images/sho ip sec conn tun1 det.png">
+
+
+### show ip security policy
+<img src="images/sho ip sec policy.png">
+
+### show ip security profile
+<img src="images/sho ip sec profile.png">
+
+### show ip security security-association
+<img src="images/sho ip sec security-association.png">
+
+### show hardware tcam profile 
+
+
+### show license
+<img src="images/sho license.png">
+
+### show kernel ipsec
+<img src="images/sho kernel ipsec.png">
+
+### show ip security daemon
+<img src="images/sho ip sec daemon - pre.png">
+<img src="images/sho ip sec daemon - post.png">
+
+### show platform fap ipsec interface tunnel `x`
+
+
+
