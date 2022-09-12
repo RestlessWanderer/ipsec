@@ -661,8 +661,8 @@ Test
 <img src="images/sho kernel ipsec.png">
 
 ### show ip security daemon
-<img src="images/sho ip sec daemon - pre.png">
-<img src="images/sho ip sec daemon - post.png">
+<img src="images/sho ip sec daemon - pre.png" width="208" height="73">
+<img src="images/sho ip sec daemon - post.png" width="214" height="72">
 
 ### show platform fap ipsec interface tunnel `x`
 
