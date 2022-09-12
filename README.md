@@ -639,7 +639,7 @@ Test
 <img src="images/sho ip sec conn.png">
 
 ### show ip security connection tunnel `x` detail
-<img src="images/sho ip sec conn tun1 det.png">
+<img src="images/sho ip sec conn tun1 det.png" width="1000" height="730">
 
 
 ### show ip security policy
