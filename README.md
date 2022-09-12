@@ -107,19 +107,25 @@ This topology is a simple site to site IPSec VPN between two Arista 7280CR3MKs. 
 
 ```
 ip security
-   ike policy ike-pol
+   ike policy ph1-pol
+      integrity sha256
+      authentication pre-share
       encryption aes256
+      dh-group 14
+      version 2
    
-   sa policy sa-pol
-      sa lifetime 2 hours
-      pfs dh-group 14
+   sa policy ph2-pol
+      esp encryption aes256
+      esp integrity sha256
+      anti-replay detection
    
    profile vpn
-      ike-policy ike-pol 
-      sa-policy sa-pol 
-      connection start
-      shared-key 7 0005010F174F0A
+      ike-policy ph1-pol 
+      sa-policy ph2-pol 
+      connection add
+      shared-key 7 (ommitted)
       dpd 30 15 clear
+      mode tunnel
 
 vlan 10
    name vlan10
@@ -162,18 +168,25 @@ router bgp 65100
 
 ```
 ip security
-   ike policy ike-pol
+   ike policy ph1-pol
+      integrity sha256
+      authentication pre-share
       encryption aes256
+      dh-group 14
+      version 2
    
-   sa policy sa-pol
-      sa lifetime 2 hours
-      pfs dh-group 14
+   sa policy ph2-pol
+      esp encryption aes256
+      esp integrity sha256
+      anti-replay detection
    
    profile vpn
-      ike-policy ike-pol 
-      sa-policy sa-pol 
-      shared-key 7 03054902151B20
+      ike-policy ph1-pol 
+      sa-policy ph2-pol 
+      connection start
+      shared-key 7 (ommitted)
       dpd 30 15 clear
+      mode tunnel
 
 vlan 20
    name vlan20
@@ -224,18 +237,24 @@ router bgp 65200
 ```
 ip security
    ike policy ph1-pol
+      integrity sha256
+      authentication pre-share
       encryption aes256
+      dh-group 14
+      version 2
    
    sa policy ph2-pol
-      sa lifetime 2 hours
-   
-   profile test
+      esp encryption aes256
+      esp integrity sha256
+      anti-replay detection
    
    profile vpn
       ike-policy ph1-pol 
       sa-policy ph2-pol 
-      shared-key 7 1218171E011F0D
+      connection add
+      shared-key 7 (ommitted)
       dpd 30 15 clear
+      mode tunnel
 
 vlan 10
    name vlan10
@@ -277,19 +296,25 @@ router bgp 65102
 
 ```
 ip security
-   ike policy ph1-pol
+    ike policy ph1-pol
+      integrity sha256
+      authentication pre-share
       encryption aes256
+      dh-group 14
+      version 2
    
    sa policy ph2-pol
-      sa lifetime 2 hours
-      pfs dh-group 14
+      esp encryption aes256
+      esp integrity sha256
+      anti-replay detection
    
    profile vpn
       ike-policy ph1-pol 
       sa-policy ph2-pol 
       connection start
-      shared-key 7 0207165218120E
+      shared-key 7 (ommitted)
       dpd 30 15 clear
+      mode tunnel
 
 vlan 20
    name vlan20
@@ -363,17 +388,25 @@ router bgp 65101
 
 ```
 ip security
-   ike policy ph1-pol
+  ike policy ph1-pol
+      integrity sha256
+      authentication pre-share
       encryption aes256
+      dh-group 14
+      version 2
    
    sa policy ph2-pol
-      sa lifetime 2 hours
+      esp encryption aes256
+      esp integrity sha256
+      anti-replay detection
    
    profile vpn
       ike-policy ph1-pol 
       sa-policy ph2-pol 
+      connection add
       shared-key 7 1304051B181805
       dpd 15 30 clear
+      mode tunnel
 
 vlan 50
    name vlan50
@@ -429,16 +462,24 @@ router bgp 65103
 ```
 ip security
    ike policy ph1-pol
+      integrity sha256
+      authentication pre-share
       encryption aes256
+      dh-group 14
+      version 2
    
    sa policy ph2-pol
-      sa lifetime 2 hours
-
+      esp encryption aes256
+      esp integrity sha256
+      anti-replay detection
+   
    profile vpn
       ike-policy ph1-pol 
       sa-policy ph2-pol 
-      shared-key 7 1218171E011F0D
+      connection add
+      shared-key 7 (ommitted)
       dpd 30 15 clear
+      mode tunnel
 
 vlan 10
    name vlan10
@@ -480,19 +521,25 @@ router bgp 65102
 
 ```
 ip security
-   ike policy ph1-pol
+    ike policy ph1-pol
+      integrity sha256
+      authentication pre-share
       encryption aes256
-   !
+      dh-group 14
+      version 2
+   
    sa policy ph2-pol
-      sa lifetime 2 hours
-      pfs dh-group 14
-   !
+      esp encryption aes256
+      esp integrity sha256
+      anti-replay detection
+   
    profile vpn
       ike-policy ph1-pol 
       sa-policy ph2-pol 
       connection start
-      shared-key 7 0207165218120E
+      shared-key 7 (ommitted)
       dpd 30 15 clear
+      mode tunnel
     
 vlan 20
    name vlan20
@@ -566,17 +613,25 @@ router bgp 65101
 
 ```
 ip security
-   ike policy ph1-pol
+  ike policy ph1-pol
+      integrity sha256
+      authentication pre-share
       encryption aes256
+      dh-group 14
+      version 2
    
    sa policy ph2-pol
-      sa lifetime 2 hours
+      esp encryption aes256
+      esp integrity sha256
+      anti-replay detection
    
    profile vpn
       ike-policy ph1-pol 
       sa-policy ph2-pol 
+      connection add
       shared-key 7 1304051B181805
       dpd 15 30 clear
+      mode tunnel
 
 vlan 50
    name vlan50
