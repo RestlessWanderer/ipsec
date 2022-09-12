@@ -646,7 +646,7 @@ Test
 <img src="images/sho ip sec policy.png">
 
 ### show ip security profile
-<img src="images/sho ip sec profile.png">
+<img src="images/sho ip sec profile.png" width="530" height="74">
 
 ### show ip security security-association
 <img src="images/sho ip sec security-association.png">
