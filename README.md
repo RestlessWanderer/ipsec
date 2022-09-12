@@ -655,7 +655,7 @@ Test
 
 
 ### show license
-<img src="images/sho license.png">
+<img src="images/sho license.png" width="350" height="375">
 
 ### show kernel ipsec
 <img src="images/sho kernel ipsec.png">
