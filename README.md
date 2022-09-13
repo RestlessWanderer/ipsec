@@ -681,9 +681,23 @@ The following commands can be used to troubleshoot VPN tunnels:
 
 ### show interface tunnel `x`
 <img src="images/sho int tun - down.png">
+&nbsp  
+
+- While the VPN goes through phase1/phase2 negotiations, it will be in a down/down state.
+- Verified by message:  waiting for successful completion of SA.
+- No encaps/decaps of data plane traffic will occur
+- No automatically added route for tunnel int will be in RIB
+&nbsp  
 
 <img src="images/sho int tun.png" width="334" height="184">
+&nbsp  
 
+- Successfully negotiated and active tunnel.
+- **Internet Address:**  IP Address of tunnel interface.
+- **Tunnel Source:** Underlay transport source interface IP address.
+- **Tunnel Destination:** Underlay transport destination interface IP address.
+- **Tunnel transport MTU:**  IP MTU assigned to tunnel interface to account for packet overhead.
+&nbsp  
 
 ### show ip route
 <img src="images/sho ip route.png">
