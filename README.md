@@ -38,6 +38,16 @@ IKEv1 modes and stages are covered with existing in-depth documentation, so they
 
 After the initial IKEv2 stages, Child SAs are created for each proxy-id pair in the VPN tunnel.
 
+1. CREATE_CHILD_SA
+- Subset security association created for each traffic-selector/proxy-id pairing
+- Same exchange also takes place during a child SA re-key
+
+2. INFORMATIONAL
+- Exchange with housekeeping and SA modification tasks.
+- Can notify about error and status information
+- Ask peer to delete and SA that was recently deleted locally
+- Negotiate additional configuration data
+
 #### Phase 2
 The second phase of this process is used to authenticate and encrypt the data plane traffic to be sent between the VPN endpoints.  During this process there are two possible protocols used, `ESP` or `AH`.  Additionally, there is another security mechanism called `PFS` or `Perfect Forward Secrecy`, used to increase the security of the encryption keys used.  Once the phase 2 negotiation is complete, an `SA` or `Security Association` is created, which specifies the algorithms in use and which endpoints are part of that security association.  
 
