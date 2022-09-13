@@ -701,39 +701,95 @@ The following commands can be used to troubleshoot VPN tunnels:
 
 ### show ip route
 <img src="images/sho ip route.png">
+&nbsp  
 
-Test
+- Connected route will be automatically added for the tunnel interface once the VPN is established.
+&nbsp  
 
 ### show ip security connection
 <img src="images/sho ip sec conn.png">
+&nbsp  
+
+- Shows tunnel interface with VPN profile applied.
+- Underlay source/destination IP addressing
+- VPN tunnel status - Establish/Idle
+- Input/Output - encaps/decaps
+&nbsp  
 
 ### show ip security connection tunnel `x` detail
 <img src="images/sho ip sec conn tun1 det.png" width="500" height="300">
+&nbsp  
 
+- Complete view of phase 2 VPN
+- SPI
+    - security parameter index
+- Lifetimes
+    - byte limit
+    - time limit
+&nbsp  
 
 ### show ip security policy
 <img src="images/sho ip sec policy.png">
+&nbsp  
+
+- Phase 1 policy parameters
+   - Authentication Type
+   - Encryption Algo
+   - Integrity Algo
+   - DH Group
+&nbsp  
 
 ### show ip security profile
 <img src="images/sho ip sec profile.png" width="530" height="74">
+&nbsp  
+
+- Phase1/Phase2 policies called by IPSec profile
+&nbsp  
 
 ### show ip security security-association
 <img src="images/sho ip sec security-association.png">
+&nbsp  
+
+- Phase 2 policy parameters
+   - Encryption algo
+   - Integrity algo
+   - Lifetime
+&nbsp  
 
 ### show hardware tcam profile 
 
 
 ### show license
 <img src="images/sho license.png" width="350" height="375">
+&nbsp  
+
+- Show license status and expiration
+&nbsp  
 
 ### show kernel ipsec
 <img src="images/sho kernel ipsec.png">
+&nbsp  
+
+- Great quick view into tunnel status
+- Shows phase 1 status and details
+   - Proxy-id pairing: 0.0.0.0/0 <-> 0.0.0.0/0 - route-based
+- Shows tunnel was installed
+   - SPIs match back to show ip sec conn
+&nbsp  
 
 ### show ip security daemon
 <img src="images/sho ip sec daemon - pre.png" width="208" height="73">
 &nbsp  
 
 <img src="images/sho ip sec daemon - post.png" width="214" height="72">
+&nbsp  
+
+- Shows underlying daemon status
+- **state**
+   - Always running
+- **enabled**
+   - False when there is no license and no tunnel interface configuration
+   - True when there are tunnel interfaces
 
 ### show platform fap ipsec interface tunnel `x`
 
